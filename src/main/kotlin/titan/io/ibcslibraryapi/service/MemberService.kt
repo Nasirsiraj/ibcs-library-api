@@ -16,7 +16,7 @@ class MemberService {
         return this.memberRepository.findAll()
     }
     // get member by id
-    fun getMemberById(@NotNull  id: Int): Member{
+    fun getMemberById(@NotNull  id: Int): Member?{
         return this.memberRepository.findById(id).orElse(null)
     }
     // post all member
