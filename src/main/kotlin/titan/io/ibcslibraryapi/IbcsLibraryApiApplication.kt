@@ -8,4 +8,5 @@ class IbcsLibraryApiApplication
 
 fun main(args: Array<String>) {
     runApplication<IbcsLibraryApiApplication>(*args)
+    println("Welcome to IBCS-Library API");
 }
