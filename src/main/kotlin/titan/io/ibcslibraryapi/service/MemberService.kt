@@ -13,43 +13,51 @@ class MemberService {
 
     // get all member
     fun getAllMember(): MutableList<Member>{
-        return this.memberRepository.findAll()
+        return memberRepository.findAll()
     }
     // get member by id
     fun getMemberById(@NotNull  id: Int): Member?{
-        return this.memberRepository.findById(id).orElse(null)
+        return memberRepository.findById(id).orElse(null)
+    }
+    fun getMemberByNid(@NotNull nid: Int): Member?{
+        return memberRepository.findByNid(nid)
     }
     // post all member
     fun postAllMember(@NotNull members: MutableList<Member>): MutableList<Member>{
-        return this.memberRepository.saveAll(members)
+        return memberRepository.saveAll(members)
     }
     // post one member
-    fun postOneMember(@NotNull member: Member): Member{
-        return this.memberRepository.save(member)
+    fun postOneMember(@NotNull member: Member): Member?{
+        var existingMember = memberRepository.findByNid(member.nid)
+        if(existingMember != null){
+            return null
+        }else{
+            return memberRepository.save(member)
+        }
     }
     // delete member by id
     fun deleteMemberById(@NotNull id: Int): String{
-        var member_: Member ?= this.memberRepository.findById(id).orElse(null)
+        var member_: Member ?= memberRepository.findById(id).orElse(null)
         return if(member_ == null){
             "member not found, id: ${id}"
         }else{
-            this.memberRepository.deleteById(id)
+            memberRepository.deleteById(id)
             "member deleted, id: ${id}"
         }
     }
     // delete member by obj
     fun deleteMemberByObj(@NotNull member: Member): String{
-        val member_: Member ?= this.memberRepository.findById(member.id).orElse(null)
+        val member_: Member ?= memberRepository.findById(member.id).orElse(null)
         return if(member_ == null){
             "member not found, id: ${member.id}"
         }else{
-            this.memberRepository.deleteById(member.id)
+            memberRepository.deleteById(member.id)
             "member deleted, id: ${member.id}"
         }
     }
     // update member by obj
     fun updateMemberByObj(@NotNull member: Member): Member?{
-        val member_: Member = this.memberRepository.findById(member.id).orElse(null)
+        val member_: Member = memberRepository.findById(member.id).orElse(null)
 
         return if(member_ == null){
             null
@@ -65,7 +73,7 @@ class MemberService {
             member_.issueDate = member.issueDate
             member_.fine = member.fine
 
-            this.memberRepository.save(member_)
+            memberRepository.save(member_)
         }
     }
 }
