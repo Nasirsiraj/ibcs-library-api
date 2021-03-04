@@ -17,6 +17,10 @@ class BookController {
     fun getBookById(@PathVariable @NotNull id: Int): Book?{
         return bookService.getBookById(id)
     }
+    @GetMapping("/books")
+    fun getAllBooks(): MutableList<Book>{
+        return bookService.getAllBooks()
+    }
     // post one book
     @PostMapping("/book")
     fun postOneBook(@RequestBody @NotNull book: Book): Book?{

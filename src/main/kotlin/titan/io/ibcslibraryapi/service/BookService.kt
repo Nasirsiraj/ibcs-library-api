@@ -15,6 +15,10 @@ class BookService {
     fun getBookById(@NotNull id: Int): Book?{
         return bookRepository.findById(id).orElse(null)
     }
+    // get all books
+    fun getAllBooks(): MutableList<Book>{
+        return bookRepository.findAll()
+    }
     // post one book
     fun postOneBook(@NotNull book: Book): Book?{
         return bookRepository.save(book)
